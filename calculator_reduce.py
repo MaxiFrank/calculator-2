@@ -1,4 +1,5 @@
-"""CLI application for a prefix-notation calculator."""
+from functools import reduce
+"""CLI application for a prefix-notation calculator with reduce"""
 
 from arithmetic import (add, subtract, multiply, divide, square, cube,
                         power, mod, )
@@ -6,24 +7,27 @@ def main_calculator():
     while True:
         input_ = input()
         tokenized_input = input_.split(' ')
+        tokenized_input = [tokenized_input[0]] + [int(string) for string in tokenized_input[1:]]
         if tokenized_input[0] == 'q':
             break
         else:
             if tokenized_input[0] == '+':
-                print(add(int(tokenized_input[1]), int(tokenized_input[2])))
+                print(reduce(add, tokenized_input[1:]))
+            if tokenized_input[0] == '+':
+                print(reduce(add, tokenized_input[1:]))
             if tokenized_input[0] == '-':
-                print(subtract(int(tokenized_input[1]), int(tokenized_input[2])))
+                print(reduce(subtract, tokenized_input[1:]))
             if tokenized_input[0] == '*':
-                print(multiply(int(tokenized_input[2]), int(tokenized_input[1])))
+                print(reduce(multiply, tokenized_input[1:]))
             if tokenized_input[0] == '/':
-                print(divide(int(tokenized_input[1]), int(tokenized_input[2])))
+                print(reduce(divide, tokenized_input[1:]))
             if tokenized_input[0] == 'square':
                 print(square(int(tokenized_input[1])))
             if tokenized_input[0] == 'cube':
                 print(cube(int(tokenized_input[1])))
             if tokenized_input[0] == 'pow':
-                print(power(int(tokenized_input[1]), int(tokenized_input[2])))
+                print(reduce(power, tokenized_input[1:]))
             if tokenized_input[0] == 'mod':
-                print(mod(int(tokenized_input[1]), int(tokenized_input[2])))
+                print(reduce(mod, tokenized_input[1:]))
 
 main_calculator()
